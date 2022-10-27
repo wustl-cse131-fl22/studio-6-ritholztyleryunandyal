@@ -1,5 +1,7 @@
 package studio6;
 
+import java.util.Arrays;
+
 import edu.princeton.cs.introcs.StdDraw;
 
 public class RecursiveMethods {
@@ -12,10 +14,16 @@ public class RecursiveMethods {
 	 *         ...)
 	 */
 	public static double geometricSum(int n) {
-		
-			// FIXME compute the geometric sum for the first n terms recursively
+
+		// FIXME compute the geometric sum for the first n terms recursively
+		double sum = 0.0;
+		if(n==0) {
 			return 0;
-		
+		}
+		else {
+			sum = Math.pow(0.5, n) + geometricSum(n-1);
+		}
+		return sum;
 	}
 
 	/**
@@ -27,13 +35,20 @@ public class RecursiveMethods {
 	 * @return greatest common divisor of p and q
 	 */
 	public static int gcd(int p, int q) {
-		
-			// FIXME compute the gcd of p and q using recursion
-			return 0;
-		
+
+		// FIXME compute the gcd of p and q using recursion
+		if(q == 0) {
+			return p;
+		}
+		else {
+			// p in the next gcd is equal to q and the q in the next gcd is equal to p%q. This method calls on itself until
+			// q == 0, in which the method will return p which will be the greatest common divisor. This value is returned
+			// through all of the recursions and the final output will be the greatest common divisior.
+			return gcd(q,p%q);
+		}
 	}
 
-	
+
 
 	/**
 	 * This method uses recursion to create a reverse of the given array
@@ -41,11 +56,33 @@ public class RecursiveMethods {
 	 * @param array the array to create a reverse of, not to be mutated
 	 * @return an array with the same data as the input but it reverse order
 	 */
+	public static int[] helper(int[] array, int index) {	
+
+
+		if(index == array.length/2) {
+			return array;
+		}
+		else {
+			int temp = array[array.length - index - 1];
+			array[array.length - index - 1] = array[index];
+			array[index] = temp;
+			return helper(array, index + 1);
+		}
+
+	}
+
 	public static int[] toReversed(int[] array) {
-		
-			// FIXME create a helper method that can recursively reverse the given array
-			return new int[0];
-		
+		int[] copyOfXs = Arrays.copyOf(array, array.length);
+
+		if(array.length == 0 || array.length == 1) {
+			return copyOfXs;
+		}
+		else {
+			return helper(copyOfXs, 0);
+		}
+		// FIXME create a helper method that can recursively reverse the given array
+
+
 	}
 
 	/**
@@ -59,7 +96,7 @@ public class RecursiveMethods {
 	 */
 	public static void circlesUponCircles(double xCenter, double yCenter, double radius,
 			double radiusMinimumDrawingThreshold) {
-		
+
 		// FIXME
 	}
 
